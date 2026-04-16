@@ -106,34 +106,9 @@
 
 \newcommand{\personalinfo}[1]{\def\@personalinfo{#1}}
 
-% \newcommand{\makecvheader}{%
-%   \begingroup
-%     \ifdef{\@photodiameter}{\begin{minipage}{\dimexpr\linewidth-\@photodiameter-2em}}{}%
-%     \raggedright\color{emphasis}%
-%     {\Huge\bfseries\MakeUppercase{\@name}\par}
-%     \medskip
-%     {\large\bfseries\color{accent}\@tagline\par}
-%     \medskip
-%     {
-%         \begin{spacing}{1.15}
-%             \small\bfseries\@personalinfo\par
-%         \end{spacing}
-%     }
-%     \ifdef{\@photodiameter}{%
-%     \end{minipage}\hfill%
-%     \begin{minipage}{\@photodiameter}
-%     \if@normalphoto
-%       \includegraphics[width=\linewidth]{\@photo}
-%     \else
-%       \tikz\path[fill overzoom image={\@photo}]circle[radius=0.5\linewidth];
-%     \fi%
-%     \end{minipage}\par}{}%
-%   \endgroup\medskip
-% }
 \newcommand{\makecvheader}{%
     \begin{tabular}{p{4.2cm} p{\dimexpr\linewidth-\@photodiameter+3cm}}
-    % \vspace{\dimexpr-\@photodiameter*0.4}
-        \vspace{-0.7cm}
+        \vspace{-0.4cm}
         \tikz\path[fill overzoom image={\@photo}]circle[radius=0.43\linewidth];
         &
         \vspace{0pt} 
@@ -142,9 +117,6 @@
         \medskip
         {\large\bfseries\color{accent}\@tagline\par}
         \medskip\\
-        % {
-        %     \makecontact
-        % }\\
     \end{tabular}
 }
 
@@ -164,7 +136,6 @@
 }
 
 \newcommand{\cvsectionnew}[2][]{%
-  % \bigskip%
   \ifstrequal{#1}{}{}{\marginpar{\vspace*{-1.6cm}\raggedright\input{#1}}}%
   {\color{heading}\LARGE\bfseries\MakeUppercase{#2}}\\[-1ex]%
   {\color{heading}\rule{\linewidth}{2pt}\par}\medskip
@@ -188,7 +159,7 @@
 }
 
 \newcommand{\cveventnew}[4]{%
-  {\vspace{-2mm}\Large\color{emphasis}\textbf{#1}\par}
+  {\vspace{-2mm}\large\color{emphasis}\textbf{#1}\par}
   \smallskip\normalsize
   \ifstrequal{#2}{}{}{
   \vspace{-1mm}\textbf{\color{accent}#2}\par
@@ -200,7 +171,7 @@
 }
 
 \newcommand{\cvproject}[4]{%
-  {\Large\color{emphasis}\textbf{#1}\par}
+  {\large\color{emphasis}\textbf{#1}\par}
   \normalsize\smallskip
   \ifstrequal{#2}{}{}{
   \textbf{\color{accent}#2}\smallskip}
