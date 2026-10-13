@@ -1,33 +1,32 @@
-# AltaCV, yet another LaTeX CV/Résumé class
+## How to compile this CV (lualatex + latexmk)
 
-v1.1.4 (27 July 2018), by LianTze Lim (liantze@gmail.com)
+Prerequisites: MiKTeX with `lualatex`, `biber`, and `latexmk` installed
+(verified with LuaHBTeX 1.24 / MiKTeX 26.2, Biber 2.21, Latexmk 4.88).
+Make sure the `lato`, `fontawesome`, and `biblatex` packages are installed
+via MiKTeX Console.
 
-(Thanks to [Nur](https://github.com/nurh) for the name.)
+Build only the root file `main.tex` — never compile `altacv.cls`,
+`left.tex`, `page*sidebar.tex`, or `sections/*.tex` standalone.
+Use `lualatex`, not plain `luatex`/`luahbtex` (plain TeX fails with
+`! Undefined control sequence` on `\newcommand` / `\documentclass`).
 
-It all started with this:
+Single-command build from the project root:
 
-[<img src="tweet-that-started-this.png" width="500px">]
-(https://twitter.com/Leonduck/status/764281546408923136)
+```powershell
+latexmk -lualatex -bibtex -f -interaction=nonstopmode -synctex=1 main.tex
+```
 
-Leonardo was talking about a [résumé of Marissa Mayer that Business Insider put together](http://www.businessinsider.my/a-sample-resume-for-marissa-mayer-2016-7/) using [enhancv.com](https://enhancv.com).
-I _knew_ I had to do something about it. And so AltaCV was born.
+Notes:
 
-## Samples
+* `-bibtex` (not `-biber`) — this Latexmk build rejects `-biber`, but
+  `-bibtex` still auto-runs `biber` via `main.bcf`.
+* `-f` (force) is required: `altacv.cls` v1.1.4 (2018) reports two
+  non-fatal errors on current LaTeX (`\maketitle already defined`,
+  `There's no line here to end` at `\makecvheader`), yet still produces
+  a correct `main.pdf` (1 page) in `-interaction=nonstopmode`.
+* Output is `main.pdf`. Re-running the same command is safe
+  (`All targets up-to-date` when nothing changed).
+* Clean aux files with `latexmk -c main.tex`.
 
-This is how the re-created résumé looks like ([view/open on Overleaf](https://www.overleaf.com/read/gtqfpbwncfvp)):
-
-<img src="mmayer.png" alt="Marissa Mayer's résumé, re-created with AltaCV" width="600px">
-
-Though if you're creating your own CV/résumé, you'd probably prefer using the basic template ([view/open on Overleaf](https://www.overleaf.com/read/trgqjpwnmtgv)):
-
-<img src="sample.png" alt="sample barebones AltaCV template" width="600px">
-
-
-## Requirements and Compilation
-
-* pdflatex + biber + pdflatex
-* AltaCV uses [`fontawesome`](http://www.ctan.org/pkg/fontawesome) and [`academicons`](http://www.ctan.org/pkg/academicons); they're included in both TeX Live 2016 and MikTeX 2.9.
-* Loading `academicons` is optional: enable it by adding the `academicons` option to `\documentclass`.
-* Can now be compiled with pdflatex, XeLaTeX and LuaLaTeX!
-* However if you're using `academicons`, you _must_ use either XeLaTeX or LuaLaTeX. If the doc then compiles but the icons don't show up in the output PDF, try compiling with LuaLaTeX instead.
-* The samples here use the [Lato](http://www.latofonts.com/lato-free-fonts/) font.
+In Zed, use `task: spawn` and pick `CV: build with lualatex (latexmk)`
+(defined in `.zed/tasks.json`).

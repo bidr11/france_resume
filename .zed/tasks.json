@@ -1,0 +1,23 @@
+[
+  {
+    "label": "CV: build with lualatex (latexmk)",
+    "command": "latexmk",
+    "args": ["-lualatex", "-bibtex", "-f", "-interaction=nonstopmode", "-synctex=1", "main.tex"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "show_summary": true,
+    "show_command": true,
+    "save": "all"
+  },
+  {
+    "label": "CV: clean aux files (latexmk)",
+    "command": "latexmk",
+    "args": ["-c", "main.tex"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "reveal": "always",
+    "hide": "on_success"
+  }
+]
